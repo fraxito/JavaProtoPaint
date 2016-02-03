@@ -59,7 +59,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
     public void paint(Graphics g){
         super.paintComponents(g);
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
-
+        g2.setColor(listaCirculos[0].color);
+        if (listaCirculos[0].relleno){
+            g2.fill(listaCirculos[0]);
+        }
+        else {
+            g2.draw(listaCirculos[0]);
+        }
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null );
@@ -128,6 +134,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
         listaCirculos[0].x = evt.getX();
         listaCirculos[0].y = evt.getY();
+        listaCirculos[0].width = 20;
+        listaCirculos[0].height = 20;
+        listaCirculos[0].color = Color.ORANGE;
+        listaCirculos[0].relleno = true;
         
         indice++;
         repaint();
