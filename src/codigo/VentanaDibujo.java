@@ -44,9 +44,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         g2.setColor(Color.white);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         //inicializo el array de buffers
-//        for (int i=0; i<listaDeshacer.length; i++){
-//
-//        }
+        for (int i=0; i<listaCirculos.length; i++){
+            listaCirculos[i] = new Circulo();
+        }
+        
         
     }
 
@@ -125,8 +126,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-            
-
+        listaCirculos[0].x = evt.getX();
+        listaCirculos[0].y = evt.getY();
+        
         indice++;
         repaint();
         System.out.println(indice);

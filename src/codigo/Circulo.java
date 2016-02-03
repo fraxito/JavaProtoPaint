@@ -7,11 +7,16 @@ además de su posición en la pantalla, si está relleno o no
  */
 package codigo;
 
+import java.awt.Color;
+import java.awt.geom.Ellipse2D;
+
 /**
  *
  * @author Jorge Cisneros
  */
-public class Circulo {
+public class Circulo extends Ellipse2D.Double{
     
+    public Color color = null;
+    public boolean relleno = false;
     
 }
