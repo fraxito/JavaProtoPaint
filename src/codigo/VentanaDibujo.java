@@ -18,59 +18,60 @@ import java.awt.image.BufferedImage;
 public class VentanaDibujo extends javax.swing.JFrame {
 
     private static int DIMENSION_ARRAY = 8;
-    
+
     //imagen en la que pintaré los círculos
     //es una variable parecida a un Image pero acelerado
     BufferedImage buffer = null;
-    
+
     //indica numero de círculos que hay en el array
     int indice = 0;
-    
+
     //declaro el array en el que voy a guardar los círculos
-    
-    Circulo [] listaCirculos = new Circulo [DIMENSION_ARRAY];
-    
+    Circulo[] listaCirculos = new Circulo[DIMENSION_ARRAY];
+
     /**
      * Creates new form VentanaDibujo
      */
     public VentanaDibujo() {
         initComponents();
-       //creo un buffer del tamaño del jPanel1
+        //creo un buffer del tamaño del jPanel1
         buffer = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
         //creo la parte modificable de la imagen
         buffer.createGraphics();
         //apunto al buffer
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+        //dibujo un cuadrado blanco del tamaño del buffer
         g2.setColor(Color.white);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         //inicializo el array de buffers
-        for (int i=0; i<listaCirculos.length; i++){
+        for (int i = 0; i < listaCirculos.length; i++) {
             listaCirculos[i] = new Circulo();
         }
-        
-        
+
     }
 
- 
-   
-    
-    
     @Override
-    public void paint(Graphics g){
+    public void paint(Graphics g) {
         super.paintComponents(g);
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
-        g2.setColor(listaCirculos[0].color);
-        if (listaCirculos[0].relleno){
-            g2.fill(listaCirculos[0]);
-        }
-        else {
-            g2.draw(listaCirculos[0]);
+        //dibujo un cuadrado blanco del tamaño del buffer
+        g2.setColor(Color.white);
+        g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
+        for (int i = 0; i < indice; i++) {
+            //leo el color del circulo 0
+            g2.setColor(listaCirculos[i].color);
+            if (listaCirculos[i].relleno) {
+                g2.fill(listaCirculos[i]);
+            } else {
+                g2.draw(listaCirculos[i]);
+            }
         }
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
-        g2.drawImage(buffer, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null );
-        
+        g2.drawImage(buffer, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(), null);
+
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -132,26 +133,32 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        listaCirculos[0].x = evt.getX();
-        listaCirculos[0].y = evt.getY();
-        listaCirculos[0].width = 20;
-        listaCirculos[0].height = 20;
-        listaCirculos[0].color = Color.ORANGE;
-        listaCirculos[0].relleno = true;
-        
-        indice++;
+        listaCirculos[indice].x = evt.getX();
+        listaCirculos[indice].y = evt.getY();
+        listaCirculos[indice].width = 20;
+        listaCirculos[indice].height = 20;
+        listaCirculos[indice].color = Color.ORANGE;
+        listaCirculos[indice].relleno = true;
+                //ñapa para que el programa no se salga del array
+        if (indice < DIMENSION_ARRAY - 1)
+        {
+            indice++;
+        }
+
+
         repaint();
         System.out.println(indice);
-        
+
+
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
         if (indice > 0) {
             indice--;
-            
+
         }
         repaint();
-        
+
     }//GEN-LAST:event_jButton1MousePressed
 
     /**
