@@ -22,9 +22,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //imagen en la que pintaré los círculos
     //es una variable parecida a un Image pero acelerado
     BufferedImage buffer = null;
-    BufferedImage [] listaDeshacer = new BufferedImage[DIMENSION_ARRAY];
-    //indica el buffer del array que estoy utilizando
+    
+    //indica numero de círculos que hay en el array
     int indice = 0;
+    
+    //declaro el array en el que voy a guardar los círculos
+    
+    Circulo [] listaCirculos = new Circulo [DIMENSION_ARRAY];
     
     /**
      * Creates new form VentanaDibujo
@@ -40,35 +44,24 @@ public class VentanaDibujo extends javax.swing.JFrame {
         g2.setColor(Color.white);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         //inicializo el array de buffers
-        for (int i=0; i<listaDeshacer.length; i++){
-            listaDeshacer[i] = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
-            listaDeshacer[i].createGraphics();
-            g2 = (Graphics2D) listaDeshacer[i].getGraphics();
-            g2.setColor(Color.white);
-            g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-        }
+//        for (int i=0; i<listaDeshacer.length; i++){
+//
+//        }
         
     }
 
-    private int calculaBuffer(int miIndice){
-        if (miIndice % DIMENSION_ARRAY < DIMENSION_ARRAY){
-            return miIndice % DIMENSION_ARRAY;
-        }
-        else {
-            return 0;
-        }
-        
-    }
+ 
+   
     
     
     @Override
     public void paint(Graphics g){
         super.paintComponents(g);
-        //Graphics2D g2 = (Graphics2D) buffer.getGraphics();
+        Graphics2D g2 = (Graphics2D) buffer.getGraphics();
 
         //apunto al jPanel
-        Graphics2D g2 = (Graphics2D) jPanel1.getGraphics();
-        g2.drawImage(listaDeshacer[calculaBuffer(indice)], 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null );
+        g2 = (Graphics2D) jPanel1.getGraphics();
+        g2.drawImage(buffer, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null );
         
     }
     /**
@@ -133,13 +126,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
             
-        //creo el circulo en la posicion en la que se ha producido el click
-        Ellipse2D.Double circulo = new Ellipse2D.Double(evt.getX()-20, evt.getY()-20,40, 40);
-        //apunto al buffer
-        Graphics2D g2 = (Graphics2D) listaDeshacer[calculaBuffer(indice + 1)].getGraphics();
-        g2.drawImage(listaDeshacer[calculaBuffer(indice)], 0, 0, jPanel1.getWidth(), jPanel1.getHeight(),null );
-        //dibujo el circulo en el buffer
-        g2.fill(circulo);
+
         indice++;
         repaint();
         System.out.println(indice);
