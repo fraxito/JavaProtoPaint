@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,8 +28,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
     int indice = 0;
 
     //declaro el array en el que voy a guardar los círculos
-    Circulo[] listaCirculos = new Circulo[DIMENSION_ARRAY];
+//    Circulo[] listaCirculos = new Circulo[DIMENSION_ARRAY];
 
+    //ahora en esta versión utilizaré un ArrayList
+    ArrayList <Circulo> listaNuevaCirculos = new ArrayList();
+    
+    
     /**
      * Creates new form VentanaDibujo
      */
@@ -43,33 +48,31 @@ public class VentanaDibujo extends javax.swing.JFrame {
         //dibujo un cuadrado blanco del tamaño del buffer
         g2.setColor(Color.white);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-        //inicializo el array de buffers
-        for (int i = 0; i < listaCirculos.length; i++) {
-            listaCirculos[i] = new Circulo();
-        }
+
 
     }
 
     @Override
     public void paint(Graphics g) {
-        super.paintComponents(g);
+        super.paint(g);
         Graphics2D g2 = (Graphics2D) buffer.getGraphics();
         //dibujo un cuadrado blanco del tamaño del buffer
         g2.setColor(Color.white);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
-        for (int i = 0; i < indice; i++) {
+        //dibujo todos los elementos del array menores que el indice
+        for (int i = 0; i < listaNuevaCirculos.size(); i++) {
+           Circulo aux =  listaNuevaCirculos.get(i);
             //leo el color del circulo 0
-            g2.setColor(listaCirculos[i].color);
-            if (listaCirculos[i].relleno) {
-                g2.fill(listaCirculos[i]);
+            g2.setColor(aux.color);
+            if (aux.relleno) {
+                g2.fill(aux);
             } else {
-                g2.draw(listaCirculos[i]);
+                g2.draw(aux);
             }
         }
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, jPanel1.getWidth(), jPanel1.getHeight(), null);
-
     }
 
     /**
@@ -83,6 +86,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jSlider1 = new javax.swing.JSlider();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,6 +115,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("BORRA TODO");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton2MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,13 +130,21 @@ public class VentanaDibujo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jButton1)
-                .addContainerGap(615, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 288, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 14, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2))
+                    .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -133,33 +153,22 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        listaCirculos[indice].x = evt.getX();
-        listaCirculos[indice].y = evt.getY();
-        listaCirculos[indice].width = 20;
-        listaCirculos[indice].height = 20;
-        listaCirculos[indice].color = Color.ORANGE;
-        listaCirculos[indice].relleno = true;
-                //ñapa para que el programa no se salga del array
-        if (indice < DIMENSION_ARRAY - 1)
-        {
-            indice++;
-        }
-
-
+        int radio = jSlider1.getValue();
+        listaNuevaCirculos.add( new Circulo(evt.getX(), evt.getY(), radio, Color.ORANGE,true) );
         repaint();
-        System.out.println(indice);
-
-
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
-        if (indice > 0) {
-            indice--;
-
+        if (listaNuevaCirculos.size() > 0){
+            listaNuevaCirculos.remove(listaNuevaCirculos.size()-1); 
+            repaint();
         }
-        repaint();
-
     }//GEN-LAST:event_jButton1MousePressed
+
+    private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
+        listaNuevaCirculos.clear();
+        repaint();
+    }//GEN-LAST:event_jButton2MousePressed
 
     /**
      * @param args the command line arguments
@@ -198,6 +207,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JSlider jSlider1;
     // End of variables declaration//GEN-END:variables
 }
