@@ -26,15 +26,15 @@ public class Rombo extends Polygon{
         this.npoints = 4;
         
         this.xpoints[0] = _x ;
-        this.ypoints[0] = _y + _height; 
+        this.ypoints[0] = _y + _height; //o width; 
 
-        this.xpoints[1] = _x - _width;
+        this.xpoints[1] = _x - _width; //o width/2;
         this.ypoints[1] = _y;
  
         this.xpoints[2] = _x;
-        this.ypoints[2] = _y - _height;
+        this.ypoints[2] = _y - _height; //o width;
         
-        this.xpoints[3] = _x + _width;
+        this.xpoints[3] = _x + _width; //o width/2;
         this.ypoints[3] = _y;
         
         
