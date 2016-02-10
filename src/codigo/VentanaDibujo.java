@@ -67,13 +67,18 @@ public class VentanaDibujo extends javax.swing.JFrame {
         g2.setColor(Color.white);
         g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
         //dibujo todos los elementos del array menores que el indice
-        for (int i = 0; i < listaFormas.size(); i++) {        
+        for (int i = 0; i < listaFormas.size(); i++) {
+//            ((Shape)listaFormas.get(i)).pintaYColorea(g2);
+            
             if (listaFormas.get(i) instanceof Circulo ){
                  ((Circulo) listaFormas.get(i)).pintaYColorea(g2);
             }
             if (listaFormas.get(i) instanceof Triangulo ){
                 ((Triangulo) listaFormas.get(i)).pintaYColorea(g2);
-            }           
+            } 
+            if (listaFormas.get(i) instanceof Rombo ){
+                ((Rombo) listaFormas.get(i)).pintaYColorea(g2);
+            }
         }
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
@@ -101,6 +106,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        ROMBO = new javax.swing.JButton();
 
         jButton6.setText("ACEPTAR");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -208,6 +214,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
         });
 
+        ROMBO.setText("Rombo");
+        ROMBO.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ROMBOMousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -226,7 +239,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jButton5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ROMBO)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addContainerGap())
         );
@@ -240,7 +255,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
                         .addComponent(jButton4)
                         .addComponent(jButton3)
                         .addComponent(jButton2)
-                        .addComponent(jButton5))
+                        .addComponent(jButton5)
+                        .addComponent(ROMBO))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1)))
@@ -252,10 +268,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-
+        int ancho = jSlider1.getValue()/2;
+        int alto = jSlider1.getValue();
         switch(forma){
             case 0:listaFormas.add( new Circulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break; 
-            case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break; 
+            case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break;
+            case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), alto, ancho, colorElegido,true) ); break;
         
         }
 
@@ -303,6 +321,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton6MousePressed
 
+    private void ROMBOMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ROMBOMousePressed
+        forma = 2;
+    }//GEN-LAST:event_ROMBOMousePressed
+
     /**
      * @param args the command line arguments
      */
@@ -339,6 +361,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ROMBO;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
