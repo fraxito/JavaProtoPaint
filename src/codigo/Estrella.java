@@ -23,10 +23,10 @@ public class Estrella extends Polygon{
         //Numero de puntos de la figura
         
         // Codigo Pentagono
-       for(int i=0; i<6; i++){
-        addPoint((int) (_x + _width * Math.cos(i * 2 * Math.PI /5)),
-        (int) (_y + _width * Math.sin(i*2 * Math.PI / 5 )));
-       }
+//       for(int i=0; i<6; i++){
+//        addPoint((int) (_x + _width * Math.cos(i * 2 * Math.PI /5)),
+//        (int) (_y + _width * Math.sin(i*2 * Math.PI / 5 )));
+//       }
         
        //Estrella Rellena parcialmente
        addPoint((int) (_x + _width * Math.cos(0 * 2 * Math.PI /5)),

@@ -58,6 +58,20 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }
 
 
+    private boolean chequeaPunto(int x, int y){
+        boolean contiene = false;
+        for (int i = 0; i < listaFormas.size(); i++) {
+            if( ((Shape) listaFormas.get(i)).contains(x,y) ){
+                //si en algun momento el contains devuelve true
+                //es porque el punto que he pasado está en una forma
+                //de las que tengo guardadas en el arraylist
+                contiene = true;
+            }
+        }
+        return contiene;
+        
+    }
+    
     
     @Override
     public void paint(Graphics g) {
@@ -299,14 +313,21 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        int ancho = jSlider1.getValue()/2;
-        int alto = jSlider1.getValue();
-        switch(forma){
-            case 0:listaFormas.add( new Circulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break; 
-            case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break;
-            case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), alto, ancho, colorElegido,true) ); break;
-            case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
-            case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
+
+        if (chequeaPunto(evt.getX(), evt.getY())){
+            //hay un elemento en esas coordenadas en las que he hecho clic
+            System.out.println("HAY UN OBJETO!!!");
+        }
+        else{
+            int ancho = jSlider1.getValue()/2;
+            int alto = jSlider1.getValue();
+            switch(forma){
+                case 0:listaFormas.add( new Circulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break; 
+                case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break;
+                case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), alto, ancho, colorElegido,true) ); break;
+                case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
+                case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
+            }
         }
 
         
