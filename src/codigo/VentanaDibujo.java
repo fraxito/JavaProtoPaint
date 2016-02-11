@@ -40,6 +40,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //variable para almacenar el color elegido
     Color colorElegido = Color.BLACK;
     
+    //variables para almacenar la posición en la que se empieza a dibujar la forma
+    int posX = 0;
+    int posY = 0;
+    
+    
     /**
      * Creates new form VentanaDibujo
      */
@@ -119,8 +124,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jSlider1 = new javax.swing.JSlider();
@@ -129,6 +132,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         ROMBO = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jToggleButton1 = new javax.swing.JToggleButton();
 
         jButton6.setText("ACEPTAR");
         jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -169,23 +175,17 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                jPanel1MouseDragged(evt);
+            }
+        });
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel1MouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jPanel1MousePressed(evt);
-            }
-        });
-
-        jButton8.setText("Cruz");
-        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton8MousePressed(evt);
-            }
-        });
-
-        jButton5.setText("COLOR");
-        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                jButton5MousePressed(evt);
             }
         });
 
@@ -193,20 +193,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(319, 319, 319)
-                .addComponent(jButton8)
-                .addGap(83, 83, 83)
-                .addComponent(jButton5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGap(0, 739, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton5))
-                .addGap(0, 475, Short.MAX_VALUE))
+            .addGap(0, 481, Short.MAX_VALUE)
         );
 
         jButton1.setText("DESHACER");
@@ -266,6 +257,22 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }
         });
 
+        jButton8.setText("Cruz");
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton8MousePressed(evt);
+            }
+        });
+
+        jButton5.setText("COLOR");
+        jButton5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jButton5MousePressed(evt);
+            }
+        });
+
+        jToggleButton1.setText("jToggleButton1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -279,15 +286,24 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel1)
                 .addGap(8, 8, 8)
-                .addComponent(jButton4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton4)
+                    .addComponent(jButton8))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9)
-                .addGap(22, 22, 22)
-                .addComponent(ROMBO)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jToggleButton1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton9)
+                        .addGap(22, 22, 22)
+                        .addComponent(ROMBO)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addComponent(jButton2)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -305,7 +321,12 @@ public class VentanaDibujo extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jSlider1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton1)))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jButton5)
+                    .addComponent(jToggleButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -313,24 +334,15 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-
-        if (chequeaPunto(evt.getX(), evt.getY())){
-            //hay un elemento en esas coordenadas en las que he hecho clic
-            System.out.println("HAY UN OBJETO!!!");
+//        posX = evt.getX();
+//        posY = evt.getY();
+        switch(forma){
+            case 0:listaFormas.add( new Circulo(evt.getX(), evt.getY(), 1, colorElegido,true) ); break; 
+            case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
+            case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), 1, 1, colorElegido,true) ); break;
+            case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
+            case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
         }
-        else{
-            int ancho = jSlider1.getValue()/2;
-            int alto = jSlider1.getValue();
-            switch(forma){
-                case 0:listaFormas.add( new Circulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break; 
-                case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break;
-                case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), alto, ancho, colorElegido,true) ); break;
-                case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
-                case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
-            }
-        }
-
-        
         repaint();
     }//GEN-LAST:event_jPanel1MousePressed
 
@@ -386,6 +398,40 @@ public class VentanaDibujo extends javax.swing.JFrame {
        forma = 4;
     }//GEN-LAST:event_jButton9MousePressed
 
+    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+        if (chequeaPunto(evt.getX(), evt.getY())){
+            //hay un elemento en esas coordenadas en las que he hecho clic
+            System.out.println("HAY UN OBJETO!!!");
+        }
+        else{
+            int ancho = jSlider1.getValue()/2;
+            int alto = jSlider1.getValue();
+            switch(forma){
+                case 0:listaFormas.add( new Circulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break; 
+                case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), jSlider1.getValue(), colorElegido,true) ); break;
+                case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), alto, ancho, colorElegido,true) ); break;
+                case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
+                case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), alto, colorElegido,true) ); break;
+            }
+        }
+
+        repaint();
+    }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
+        switch (forma){
+            case 0:{
+                //leo el último elemento de la lista. Se que se añadió
+                //en el mousePressed
+                Circulo aux = (Circulo) listaFormas.get(listaFormas.size()-1);
+                int radio = (int)(evt.getX() - aux.x);
+                aux.width = radio;
+                aux.height = radio;
+            }  break;
+        }  
+        repaint();
+    }//GEN-LAST:event_jPanel1MouseDragged
+
     /**
      * @param args the command line arguments
      */
@@ -437,5 +483,6 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
+    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
 }
