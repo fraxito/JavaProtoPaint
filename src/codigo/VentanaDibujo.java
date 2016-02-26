@@ -95,27 +95,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         //jPanel1.setVisible(false);
         Graphics2D g2 =  (Graphics2D) buffer.getGraphics();
 
-        //dibujo todos los elementos del array menores que el indice
 
-//            int i = listaFormas.size() - 1;
-//            if (i > 0) {
-//                if (listaFormas.get(i) instanceof Circulo) {
-//                    ((Circulo) listaFormas.get(i)).pintaYColorea(g2);
-//                }
-//                if (listaFormas.get(i) instanceof Triangulo) {
-//                    ((Triangulo) listaFormas.get(i)).pintaYColorea(g2);
-//                }
-//                if (listaFormas.get(i) instanceof Rombo) {
-//                    ((Rombo) listaFormas.get(i)).pintaYColorea(g2);
-//                }
-//                if (listaFormas.get(i) instanceof Cruz) {
-//                    ((Cruz) listaFormas.get(i)).pintaYColorea(g2);
-//                }
-//                if (listaFormas.get(i) instanceof Estrella) {
-//                    ((Estrella) listaFormas.get(i)).pintaYColorea(g2);
-//                }
-//            
-//        }
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, null);
@@ -150,6 +130,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
@@ -312,11 +293,25 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem2.setText("Abrir");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setText("Guardar Obra de arte");
         jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jMenuItem1MousePressed(evt);
+            }
+        });
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
             }
         });
         jMenu1.add(jMenuItem1);
@@ -390,7 +385,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jPanel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MousePressed
-        System.out.println("PRESSED");
+        
         Graphics2D g2 =  (Graphics2D) jPanel1.getGraphics();
         switch(forma){
             case 0:{
@@ -398,10 +393,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 listaFormas.add(aux);
                 aux.pintaYColorea(g2);
             } break; 
-            case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
-            case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), 1, 1, colorElegido,true) ); break;
-            case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
-            case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
+//            case 1:listaFormas.add( new Triangulo(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
+//            case 2:listaFormas.add( new Rombo(evt.getX(), evt.getY(), 1, 1, colorElegido,true) ); break;
+//            case 3:listaFormas.add( new Cruz(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
+//            case 4:listaFormas.add( new Estrella(evt.getX(), evt.getY(), 1, colorElegido,true) ); break;
+//        
         }
         
         //repaint();
@@ -522,7 +518,11 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
-        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));
+      
+    }//GEN-LAST:event_jMenuItem1MousePressed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+          jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));
         jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen png", "png"));
         int seleccion = jFileChooser1.showSaveDialog(this);
         
@@ -543,7 +543,31 @@ public class VentanaDibujo extends javax.swing.JFrame {
             break;
         }
         
-    }//GEN-LAST:event_jMenuItem1MousePressed
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen jpg", "jpg"));
+        jFileChooser1.setFileFilter(new FileNameExtensionFilter("arhivos de imagen png", "png"));
+        int seleccion = jFileChooser1.showOpenDialog(this);
+        
+        switch (seleccion) {
+            case JFileChooser.APPROVE_OPTION: {
+                File fichero = jFileChooser1.getSelectedFile();
+                String nombre = fichero.getName();
+                String extension = nombre.substring(nombre.lastIndexOf('.')+1, nombre.length());
+
+                if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
+                    try {
+                        buffer = ImageIO.read(fichero);
+                        repaint();
+                    } catch (IOException ex) {
+                        Logger.getLogger(VentanaDibujo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            break;
+        }
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -600,6 +624,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JToggleButton jToggleButton1;
