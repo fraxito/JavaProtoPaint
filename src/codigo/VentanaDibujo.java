@@ -475,9 +475,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        
         Graphics2D g2 =  (Graphics2D) jPanel1.getGraphics();
-        g2.drawImage(buffer, 0, 0, null);
+        //g2.drawImage(buffer, 0, 0, null);
         switch (forma){
             case 0:{
                 //leo el último elemento de la lista. Se que se añadió
@@ -497,13 +496,13 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 aux.pintaYColorea(g2);
             }  break;
         } 
-
+        //g2 =  (Graphics2D) jPanel1.getGraphics();
+        //g2.drawImage(buffer, 0, 0, null);
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
-        RepaintManager.currentManager(this).markCompletelyClean(jPanel1);
         Graphics2D g2 =  (Graphics2D) buffer.getGraphics();
-        //g2.drawImage(buffer, 0, 0, null);
+        g2.drawImage(buffer, 0, 0, null);
         switch (forma){
             case 0:{
                 //leo el último elemento de la lista. Se que se añadió
@@ -515,6 +514,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 aux.pintaYColorea(g2);
             }  break;
         } 
+        g2 =  (Graphics2D) jPanel1.getGraphics();
+        g2.drawImage(buffer, 0, 0, null);
     }//GEN-LAST:event_jPanel1MouseReleased
 
     private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
