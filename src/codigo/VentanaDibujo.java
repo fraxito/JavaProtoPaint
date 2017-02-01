@@ -31,6 +31,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
     //imagen en la que pintaré los círculos
     //es una variable parecida a un Image pero acelerado
     private BufferedImage buffer = null;
+    private BufferedImage buffer2 = null;
 
     //indica numero de círculos que hay en el array
     int indice = 0;
@@ -70,7 +71,10 @@ public class VentanaDibujo extends javax.swing.JFrame {
         g2 =  (Graphics2D) jPanel1.getGraphics();
         g2.drawImage(buffer, 0, 0, null);
 
-        
+        buffer2 = (BufferedImage) jPanel1.createImage(jPanel1.getWidth(), jPanel1.getHeight());
+        g2= buffer2.createGraphics();
+        g2.setColor(Color.white);
+        g2.fillRect(0, 0, jPanel1.getWidth(), jPanel1.getHeight());
     }
 
 
@@ -98,7 +102,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
 
         //apunto al jPanel
         g2 = (Graphics2D) jPanel1.getGraphics();
-        g2.drawImage(buffer, 0, 0, null);
+        g2.drawImage(buffer, 0, 0, this);
     }
 
     /**
@@ -400,19 +404,19 @@ public class VentanaDibujo extends javax.swing.JFrame {
 //        
         }
         
-        //repaint();
+        //repaint(0,0,1,1);
     }//GEN-LAST:event_jPanel1MousePressed
 
     private void jButton1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MousePressed
 //        if (listaFormas.size() > 0){
 //            listaFormas.remove(listaFormas.size()-1); 
-//            repaint();
+//            repaint(0,0,1,1);
 //        }
     }//GEN-LAST:event_jButton1MousePressed
 
     private void jButton2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MousePressed
         listaFormas.clear();
-        repaint();
+        repaint(0,0,1,1);
     }//GEN-LAST:event_jButton2MousePressed
 
     private void jSlider1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jSlider1MouseDragged
@@ -475,8 +479,8 @@ public class VentanaDibujo extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void jPanel1MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseDragged
-        Graphics2D g2 =  (Graphics2D) jPanel1.getGraphics();
-        //g2.drawImage(buffer, 0, 0, null);
+        Graphics2D g2 =  (Graphics2D) buffer.getGraphics();
+        g2.drawImage(buffer2, 0, 0, null);
         switch (forma){
             case 0:{
                 //leo el último elemento de la lista. Se que se añadió
@@ -496,8 +500,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 aux.pintaYColorea(g2);
             }  break;
         } 
-        //g2 =  (Graphics2D) jPanel1.getGraphics();
-        //g2.drawImage(buffer, 0, 0, null);
+        
+        g2 = (Graphics2D) jPanel1.getGraphics();        
+        g2.drawImage(buffer, 0, 0, null);
     }//GEN-LAST:event_jPanel1MouseDragged
 
     private void jPanel1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseReleased
@@ -515,6 +520,9 @@ public class VentanaDibujo extends javax.swing.JFrame {
             }  break;
         } 
         g2 =  (Graphics2D) jPanel1.getGraphics();
+        g2.drawImage(buffer, 0, 0, null);
+        
+        g2 = (Graphics2D) buffer2.getGraphics();
         g2.drawImage(buffer, 0, 0, null);
     }//GEN-LAST:event_jPanel1MouseReleased
 
@@ -560,7 +568,7 @@ public class VentanaDibujo extends javax.swing.JFrame {
                 if (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("png")) {
                     try {
                         buffer = ImageIO.read(fichero);
-                        repaint();
+                        repaint(0,0,1,1);
                     } catch (IOException ex) {
                         Logger.getLogger(VentanaDibujo.class.getName()).log(Level.SEVERE, null, ex);
                     }
